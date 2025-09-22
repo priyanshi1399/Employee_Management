@@ -23,8 +23,8 @@ public class Employee {
     private Department department;
 
     @OneToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name="detail_id",referencedColumnName = "id")
-    private EmployeeDetail employeeDetail;
+    @JoinColumn(name="address_id",referencedColumnName = "id")
+    private Address address;
 
 
 }
