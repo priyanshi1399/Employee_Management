@@ -7,12 +7,14 @@ import com.priyanshi.EmployeeManagementCRUD.entity.Department;
 import com.priyanshi.EmployeeManagementCRUD.entity.Employee;
 import com.priyanshi.EmployeeManagementCRUD.repository.DepartmentRepository;
 import com.priyanshi.EmployeeManagementCRUD.repository.EmployeeRepository;
+import lombok.Data;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 @Service
+@Data
 public class EmployeeService  {
 
     private final EmployeeRepository employeeRepository;
@@ -54,6 +56,11 @@ public class EmployeeService  {
             return employeeRepository.findById(id)
                     .map(this::mapToResponse).orElseThrow(()->new RuntimeException("Employee not found"));
         }
+
+    public List<EmployeeResponseDTO> getEmployeeByDepartmentName(String departmentName){
+        return employeeRepository.findByDepartment_Name(departmentName)
+                .stream().map(this::mapToResponse).collect(Collectors.toList());
+    }
 
         public EmployeeResponseDTO updateEmployee(Long id,EmployeeRequestDTO dto){
             Employee existing=employeeRepository.findById(id)
